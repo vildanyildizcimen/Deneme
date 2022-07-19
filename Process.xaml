@@ -1,0 +1,1193 @@
+<Activity mc:Ignorable="sap sap2010" x:Class="Process" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:d="clr-namespace:DWS_Mail;assembly=DWS.Mail" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib" xmlns:sd="clr-namespace:System.Data;assembly=System.Data" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <x:Members>
+    <x:Property sap2010:Annotation.AnnotationText="Transaction item to be processed." Name="in_TransactionItem" Type="InArgument(ui:QueueItem)" />
+    <x:Property sap2010:Annotation.AnnotationText="Dictionary structure to store configuration data of the process (settings, constants and assets)." Name="in_Config" Type="InArgument(scg:Dictionary(x:String, x:Object))" />
+    <x:Property Name="in_TransactionNumber" Type="InArgument(x:Int32)" />
+  </x:Members>
+  <mva:VisualBasic.Settings>
+    <x:Null />
+  </mva:VisualBasic.Settings>
+  <sap:VirtualizedContainerService.HintSize>3292,5460</sap:VirtualizedContainerService.HintSize>
+  <sap2010:WorkflowViewState.IdRef>ProcessTransaction_1</sap2010:WorkflowViewState.IdRef>
+  <TextExpression.NamespacesForImplementation>
+    <scg:List x:TypeArguments="x:String" Capacity="39">
+      <x:String>System.Activities</x:String>
+      <x:String>System.Activities.Statements</x:String>
+      <x:String>System.Activities.Expressions</x:String>
+      <x:String>System.Activities.Validation</x:String>
+      <x:String>System.Activities.XamlIntegration</x:String>
+      <x:String>Microsoft.VisualBasic</x:String>
+      <x:String>Microsoft.VisualBasic.Activities</x:String>
+      <x:String>System</x:String>
+      <x:String>System.Collections</x:String>
+      <x:String>System.Collections.Generic</x:String>
+      <x:String>System.Data</x:String>
+      <x:String>System.Diagnostics</x:String>
+      <x:String>System.Drawing</x:String>
+      <x:String>System.IO</x:String>
+      <x:String>System.Linq</x:String>
+      <x:String>System.Net.Mail</x:String>
+      <x:String>System.Xml</x:String>
+      <x:String>System.Xml.Linq</x:String>
+      <x:String>UiPath.Core</x:String>
+      <x:String>UiPath.Core.Activities</x:String>
+      <x:String>System.Windows.Markup</x:String>
+      <x:String>System.Runtime.Serialization</x:String>
+      <x:String>System.Collections.ObjectModel</x:String>
+      <x:String>System.Reflection</x:String>
+      <x:String>System.Runtime.InteropServices</x:String>
+      <x:String>System.ComponentModel</x:String>
+      <x:String>System.Xml.Serialization</x:String>
+      <x:String>System.Activities.DynamicUpdate</x:String>
+      <x:String>UiPath.Core.Activities.Orchestrator</x:String>
+      <x:String>UiPath.Database</x:String>
+      <x:String>UiPath.Database.Activities</x:String>
+      <x:String>Microsoft.VisualBasic.CompilerServices</x:String>
+      <x:String>DWS_Mail</x:String>
+      <x:String>Microsoft.Exchange.WebServices.Data</x:String>
+      <x:String>UiPath.Mail</x:String>
+      <x:String>UiPath.Mail.Exchange.Activities</x:String>
+      <x:String>System.Security</x:String>
+      <x:String>UiPath.Mail.SMTP.Activities</x:String>
+      <x:String>UiPath.Mail.Activities</x:String>
+    </scg:List>
+  </TextExpression.NamespacesForImplementation>
+  <TextExpression.ReferencesForImplementation>
+    <scg:List x:TypeArguments="AssemblyReference" Capacity="34">
+      <AssemblyReference>System.Activities</AssemblyReference>
+      <AssemblyReference>Microsoft.VisualBasic</AssemblyReference>
+      <AssemblyReference>mscorlib</AssemblyReference>
+      <AssemblyReference>System.Data</AssemblyReference>
+      <AssemblyReference>System</AssemblyReference>
+      <AssemblyReference>System.Drawing</AssemblyReference>
+      <AssemblyReference>System.Core</AssemblyReference>
+      <AssemblyReference>System.Xml</AssemblyReference>
+      <AssemblyReference>System.Xml.Linq</AssemblyReference>
+      <AssemblyReference>PresentationFramework</AssemblyReference>
+      <AssemblyReference>WindowsBase</AssemblyReference>
+      <AssemblyReference>PresentationCore</AssemblyReference>
+      <AssemblyReference>System.Xaml</AssemblyReference>
+      <AssemblyReference>System.ComponentModel.Composition</AssemblyReference>
+      <AssemblyReference>System.ServiceModel</AssemblyReference>
+      <AssemblyReference>Microsoft.VisualStudio.Services.Common</AssemblyReference>
+      <AssemblyReference>UiPath.System.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.UiAutomation.Activities</AssemblyReference>
+      <AssemblyReference>System.Runtime.Serialization</AssemblyReference>
+      <AssemblyReference>Microsoft.Bcl.AsyncInterfaces</AssemblyReference>
+      <AssemblyReference>System.ValueTuple</AssemblyReference>
+      <AssemblyReference>System.Memory</AssemblyReference>
+      <AssemblyReference>UiPath.Excel</AssemblyReference>
+      <AssemblyReference>UiPath.Mail</AssemblyReference>
+      <AssemblyReference>UiPath.OCR.Activities.Design</AssemblyReference>
+      <AssemblyReference>UiPath.UIAutomationCore</AssemblyReference>
+      <AssemblyReference>System.Data.DataSetExtensions</AssemblyReference>
+      <AssemblyReference>UiPath.System.Activities.Design</AssemblyReference>
+      <AssemblyReference>UiPath.Database</AssemblyReference>
+      <AssemblyReference>UiPath.Database.Activities</AssemblyReference>
+      <AssemblyReference>DWS.Mail</AssemblyReference>
+      <AssemblyReference>Microsoft.Exchange.WebServices</AssemblyReference>
+      <AssemblyReference>UiPath.Mail.Activities</AssemblyReference>
+      <AssemblyReference>System.Runtime.WindowsRuntime</AssemblyReference>
+    </scg:List>
+  </TextExpression.ReferencesForImplementation>
+  <Sequence sap2010:Annotation.AnnotationText="Invoke major steps of the business process, which are usually implemented by multiple subworkflows.&#xA;&#xA;If a BusinessRuleException is thrown, the transaction is skipped. &#xA;If another kind of exception occurs, the current transaction can be retried. " DisplayName="Process" sap:VirtualizedContainerService.HintSize="3302,5395" sap2010:WorkflowViewState.IdRef="Sequence_1">
+    <Sequence.Variables>
+      <Variable x:TypeArguments="x:String" Name="RaporTakipNo" />
+      <Variable x:TypeArguments="x:String" Name="QueueName" />
+      <Variable x:TypeArguments="x:String" Name="connString" />
+      <Variable x:TypeArguments="x:String" Name="Lokasyon" />
+      <Variable x:TypeArguments="s:String[]" Name="VakaArray" />
+      <Variable x:TypeArguments="x:String" Name="GetKayitInfo" />
+      <Variable x:TypeArguments="sd:DataTable" Name="dtKayitInfo" />
+      <Variable x:TypeArguments="x:String" Name="RaporSiraNo" />
+      <Variable x:TypeArguments="s:DateTime" Name="RaporBaslamaTarihi" />
+      <Variable x:TypeArguments="s:DateTime" Name="RaporBitisTarihi" />
+      <Variable x:TypeArguments="x:String" Name="TCKimlikNo" />
+      <Variable x:TypeArguments="sd:DataTable" Name="dtSicilInfo" />
+      <Variable x:TypeArguments="x:String" Name="SicilNo" />
+      <Variable x:TypeArguments="x:String" Name="BirinciYonetici" />
+      <Variable x:TypeArguments="x:String" Name="IlgiliYoneticiler" />
+      <Variable x:TypeArguments="sd:DataTable" Name="dtBolgeBilgileri" />
+      <Variable x:TypeArguments="x:String" Name="Musteri" />
+    </Sequence.Variables>
+    <sap:WorkflowViewStateService.ViewState>
+      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+        <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+      </scg:Dictionary>
+    </sap:WorkflowViewStateService.ViewState>
+    <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="3260,93" sap2010:WorkflowViewState.IdRef="LogMessage_3" Level="Info" Message="[&quot;TransactionNumber : &quot;+in_TransactionNumber.ToString]" />
+    <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="3260,93" sap2010:WorkflowViewState.IdRef="LogMessage_10" Level="Info" Message="[&quot;TransactionItem : &quot;+in_TransactionItem.Reference.ToString]" />
+    <If Condition="[in_TransactionNumber=1]" DisplayName="If in_TransactionNumber=1" sap:VirtualizedContainerService.HintSize="3260,293" sap2010:WorkflowViewState.IdRef="If_8">
+      <sap:WorkflowViewStateService.ViewState>
+        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+          <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          <x:Boolean x:Key="IsPinned">False</x:Boolean>
+        </scg:Dictionary>
+      </sap:WorkflowViewStateService.ViewState>
+      <If.Then>
+        <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="Invoke HRBilisimApp_Login workflow" sap:VirtualizedContainerService.HintSize="334,113" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_8" UnSafe="False" WorkflowFileName="Faz1\HRBilisimApp_Login.xaml">
+          <ui:InvokeWorkflowFile.Arguments>
+            <InArgument x:TypeArguments="scg:Dictionary(x:String, x:Object)" x:Key="in_Config">[in_Config]</InArgument>
+          </ui:InvokeWorkflowFile.Arguments>
+        </ui:InvokeWorkflowFile>
+      </If.Then>
+    </If>
+    <Sequence DisplayName="Assign Islemleri" sap:VirtualizedContainerService.HintSize="3260,4533" sap2010:WorkflowViewState.IdRef="Sequence_7">
+      <Sequence.Variables>
+        <Variable x:TypeArguments="x:String" Name="Vaka" />
+        <Variable x:TypeArguments="x:String" Name="RaporBilgileriTabloAdi" />
+      </Sequence.Variables>
+      <sap:WorkflowViewStateService.ViewState>
+        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+          <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          <x:Boolean x:Key="IsPinned">False</x:Boolean>
+        </scg:Dictionary>
+      </sap:WorkflowViewStateService.ViewState>
+      <Assign sap:VirtualizedContainerService.HintSize="3218,60" sap2010:WorkflowViewState.IdRef="Assign_44">
+        <Assign.To>
+          <OutArgument x:TypeArguments="x:String">[RaporBilgileriTabloAdi]</OutArgument>
+        </Assign.To>
+        <Assign.Value>
+          <InArgument x:TypeArguments="x:String">[in_Config("RaporBilgileriTabloAdi").ToString]</InArgument>
+        </Assign.Value>
+      </Assign>
+      <Assign sap:VirtualizedContainerService.HintSize="3218,60" sap2010:WorkflowViewState.IdRef="Assign_3">
+        <Assign.To>
+          <OutArgument x:TypeArguments="x:String">[connString]</OutArgument>
+        </Assign.To>
+        <Assign.Value>
+          <InArgument x:TypeArguments="x:String">[in_Config("dbConnectionString").ToString]</InArgument>
+        </Assign.Value>
+      </Assign>
+      <Assign sap:VirtualizedContainerService.HintSize="3218,60" sap2010:WorkflowViewState.IdRef="Assign_5">
+        <Assign.To>
+          <OutArgument x:TypeArguments="s:String[]">[VakaArray]</OutArgument>
+        </Assign.To>
+        <Assign.Value>
+          <InArgument x:TypeArguments="s:String[]">[{"Is Kazasi","Hastalik","Analik"}]</InArgument>
+        </Assign.Value>
+      </Assign>
+      <Assign sap:VirtualizedContainerService.HintSize="3218,60" sap2010:WorkflowViewState.IdRef="Assign_10">
+        <Assign.To>
+          <OutArgument x:TypeArguments="x:String">[QueueName]</OutArgument>
+        </Assign.To>
+        <Assign.Value>
+          <InArgument x:TypeArguments="x:String">[in_Config("HRBilisimQueue").ToString]</InArgument>
+        </Assign.Value>
+      </Assign>
+      <Assign sap:VirtualizedContainerService.HintSize="3218,60" sap2010:WorkflowViewState.IdRef="Assign_4">
+        <Assign.To>
+          <OutArgument x:TypeArguments="x:String">[Lokasyon]</OutArgument>
+        </Assign.To>
+        <Assign.Value>
+          <InArgument x:TypeArguments="x:String">[Split(in_TransactionItem.Reference,"_")(0).ToString]</InArgument>
+        </Assign.Value>
+      </Assign>
+      <Assign sap:VirtualizedContainerService.HintSize="3218,60" sap2010:WorkflowViewState.IdRef="Assign_31">
+        <Assign.To>
+          <OutArgument x:TypeArguments="x:String">[Vaka]</OutArgument>
+        </Assign.To>
+        <Assign.Value>
+          <InArgument x:TypeArguments="x:String">[Split(in_TransactionItem.Reference,"_")(1).ToString]</InArgument>
+        </Assign.Value>
+      </Assign>
+      <Assign sap:VirtualizedContainerService.HintSize="3218,60" sap2010:WorkflowViewState.IdRef="Assign_11">
+        <Assign.To>
+          <OutArgument x:TypeArguments="x:String">[RaporTakipNo]</OutArgument>
+        </Assign.To>
+        <Assign.Value>
+          <InArgument x:TypeArguments="x:String">[Split(in_TransactionItem.Reference,"_")(2).ToString]</InArgument>
+        </Assign.Value>
+      </Assign>
+      <Assign sap:VirtualizedContainerService.HintSize="3218,60" sap2010:WorkflowViewState.IdRef="Assign_12">
+        <Assign.To>
+          <OutArgument x:TypeArguments="x:String">[RaporSiraNo]</OutArgument>
+        </Assign.To>
+        <Assign.Value>
+          <InArgument x:TypeArguments="x:String">[Split(in_TransactionItem.Reference,"_")(3).ToString]</InArgument>
+        </Assign.Value>
+      </Assign>
+      <Sequence sap:VirtualizedContainerService.HintSize="3218,3641" sap2010:WorkflowViewState.IdRef="Sequence_22">
+        <Sequence.Variables>
+          <Variable x:TypeArguments="x:String" Name="AdSoyad" />
+        </Sequence.Variables>
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+        <Assign sap:VirtualizedContainerService.HintSize="3176,60" sap2010:WorkflowViewState.IdRef="Assign_26">
+          <Assign.To>
+            <OutArgument x:TypeArguments="x:String">[GetKayitInfo]</OutArgument>
+          </Assign.To>
+          <Assign.Value>
+            <InArgument x:TypeArguments="x:String">["select * from "+in_Config("RaporBilgileriTabloAdi").tostring+" Where RaporTakipNo='"+RaporTakipNo+"' and RaporSiraNo='"+RaporSiraNo+"'"]</InArgument>
+          </Assign.Value>
+        </Assign>
+        <ui:ExecuteQuery ContinueOnError="{x:Null}" ExistingDbConnection="{x:Null}" TimeoutMS="{x:Null}" CommandType="Text" DataTable="[dtKayitInfo]" DisplayName="Execute Query for KayitBilgileri" sap:VirtualizedContainerService.HintSize="3176,88" sap2010:WorkflowViewState.IdRef="ExecuteQuery_5" ProviderName="System.Data.SqlClient" Sql="[GetKayitInfo]" ConnectionString="[connString]">
+          <ui:ExecuteQuery.Parameters>
+            <scg:Dictionary x:TypeArguments="x:String, Argument" />
+          </ui:ExecuteQuery.Parameters>
+        </ui:ExecuteQuery>
+        <Assign DisplayName="Assign RaporBaslamaTarihi" sap:VirtualizedContainerService.HintSize="3176,60" sap2010:WorkflowViewState.IdRef="Assign_27">
+          <Assign.To>
+            <OutArgument x:TypeArguments="s:DateTime">[RaporBaslamaTarihi]</OutArgument>
+          </Assign.To>
+          <Assign.Value>
+            <InArgument x:TypeArguments="s:DateTime">[CDate(dtKayitInfo.Rows(0).Item("RaporBaslamaTarihi"))]</InArgument>
+          </Assign.Value>
+        </Assign>
+        <Assign DisplayName="Assign RaporBitisTarihi" sap:VirtualizedContainerService.HintSize="3176,60" sap2010:WorkflowViewState.IdRef="Assign_28">
+          <Assign.To>
+            <OutArgument x:TypeArguments="s:DateTime">[RaporBitisTarihi]</OutArgument>
+          </Assign.To>
+          <Assign.Value>
+            <InArgument x:TypeArguments="s:DateTime">[CDate(dtKayitInfo.Rows(0).Item("RaporBitisTarihi"))]</InArgument>
+          </Assign.Value>
+        </Assign>
+        <Assign DisplayName="Assign TCKimlikNo" sap:VirtualizedContainerService.HintSize="3176,60" sap2010:WorkflowViewState.IdRef="Assign_29">
+          <Assign.To>
+            <OutArgument x:TypeArguments="x:String">[TCKimlikNo]</OutArgument>
+          </Assign.To>
+          <Assign.Value>
+            <InArgument x:TypeArguments="x:String">[dtKayitInfo.Rows(0).Item("TCKimlikNo").ToString]</InArgument>
+          </Assign.Value>
+        </Assign>
+        <Assign DisplayName="Assign TCKimlikNo" sap:VirtualizedContainerService.HintSize="3176,60" sap2010:WorkflowViewState.IdRef="Assign_65">
+          <Assign.To>
+            <OutArgument x:TypeArguments="x:String">[AdSoyad]</OutArgument>
+          </Assign.To>
+          <Assign.Value>
+            <InArgument x:TypeArguments="x:String">[dtKayitInfo.Rows(0).Item("AdSoyad").ToString]</InArgument>
+          </Assign.Value>
+        </Assign>
+        <Assign sap:VirtualizedContainerService.HintSize="3176,60" sap2010:WorkflowViewState.IdRef="Assign_61">
+          <Assign.To>
+            <OutArgument x:TypeArguments="x:String">[SicilNo]</OutArgument>
+          </Assign.To>
+          <Assign.Value>
+            <InArgument x:TypeArguments="x:String">
+              <Literal x:TypeArguments="x:String" Value="" />
+            </InArgument>
+          </Assign.Value>
+        </Assign>
+        <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="3176,93" sap2010:WorkflowViewState.IdRef="LogMessage_12" Level="Info" Message="[&quot;Config den bolge bilgileri çekiliyor&quot;]" />
+        <Assign sap:VirtualizedContainerService.HintSize="3176,60" sap2010:WorkflowViewState.IdRef="Assign_59">
+          <Assign.To>
+            <OutArgument x:TypeArguments="sd:DataTable">[dtBolgeBilgileri]</OutArgument>
+          </Assign.To>
+          <Assign.Value>
+            <InArgument x:TypeArguments="sd:DataTable">[CType(in_Config("BolgeBilgileri"),System.Data.DataTable)]</InArgument>
+          </Assign.Value>
+        </Assign>
+        <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="3176,93" sap2010:WorkflowViewState.IdRef="LogMessage_13" Level="Info" Message="[&quot;Config den bolge bilgileri çekildi&quot;]" />
+        <ui:FilterDataTable DataTable="[dtBolgeBilgileri]" DisplayName="Filter Data Table" sap:VirtualizedContainerService.HintSize="3176,59" sap2010:WorkflowViewState.IdRef="FilterDataTable_1" OutputDataTable="[dtBolgeBilgileri]" SelectColumnsMode="Keep">
+          <ui:FilterDataTable.Filters>
+            <scg:List x:TypeArguments="ui:FilterOperationArgument" Capacity="4">
+              <ui:FilterOperationArgument BooleanOperator="And" Operator="EQ">
+                <ui:FilterOperationArgument.Column>
+                  <InArgument x:TypeArguments="x:String">["LokasyonKodu"]</InArgument>
+                </ui:FilterOperationArgument.Column>
+                <ui:FilterOperationArgument.Operand>
+                  <InArgument x:TypeArguments="x:String">[Lokasyon]</InArgument>
+                </ui:FilterOperationArgument.Operand>
+              </ui:FilterOperationArgument>
+            </scg:List>
+          </ui:FilterDataTable.Filters>
+          <ui:FilterDataTable.SelectColumns>
+            <scg:List x:TypeArguments="InArgument" Capacity="4">
+              <x:Null />
+            </scg:List>
+          </ui:FilterDataTable.SelectColumns>
+        </ui:FilterDataTable>
+        <TryCatch DisplayName="Try Catch for Get Sicil No" sap:VirtualizedContainerService.HintSize="3176,271" sap2010:WorkflowViewState.IdRef="TryCatch_1">
+          <sap:WorkflowViewStateService.ViewState>
+            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+              <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+              <x:Boolean x:Key="IsPinned">False</x:Boolean>
+            </scg:Dictionary>
+          </sap:WorkflowViewStateService.ViewState>
+          <TryCatch.Try>
+            <Sequence sap:VirtualizedContainerService.HintSize="989,1045" sap2010:WorkflowViewState.IdRef="Sequence_41">
+              <sap:WorkflowViewStateService.ViewState>
+                <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                  <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                </scg:Dictionary>
+              </sap:WorkflowViewStateService.ViewState>
+              <ui:ExecuteQuery ContinueOnError="{x:Null}" ExistingDbConnection="{x:Null}" TimeoutMS="{x:Null}" CommandType="Text" DataTable="[dtSicilInfo]" DisplayName="Execute Query for SICIL" sap:VirtualizedContainerService.HintSize="947,88" sap2010:WorkflowViewState.IdRef="ExecuteQuery_6" ProviderName="System.Data.SqlClient" Sql="[in_Config(&quot;GetHRQueryWithTC&quot;).ToString]" ConnectionString="[connString]">
+                <ui:ExecuteQuery.Parameters>
+                  <InArgument x:TypeArguments="x:String" x:Key="@TC_NO">[TCKimlikNo]</InArgument>
+                </ui:ExecuteQuery.Parameters>
+              </ui:ExecuteQuery>
+              <If Condition="[dtSicilInfo.Rows.Count&gt;0]" DisplayName="If dtSicilInfo.Rows.Count&gt;0" sap:VirtualizedContainerService.HintSize="947,825" sap2010:WorkflowViewState.IdRef="If_33">
+                <If.Then>
+                  <Sequence sap:VirtualizedContainerService.HintSize="526,665" sap2010:WorkflowViewState.IdRef="Sequence_60">
+                    <sap:WorkflowViewStateService.ViewState>
+                      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                      </scg:Dictionary>
+                    </sap:WorkflowViewStateService.ViewState>
+                    <Assign DisplayName="Assign SICIL" sap:VirtualizedContainerService.HintSize="484,60" sap2010:WorkflowViewState.IdRef="Assign_30">
+                      <Assign.To>
+                        <OutArgument x:TypeArguments="x:String">[SicilNo]</OutArgument>
+                      </Assign.To>
+                      <Assign.Value>
+                        <InArgument x:TypeArguments="x:String">[dtSicilInfo.Rows(0).Item("SICIL").ToString]</InArgument>
+                      </Assign.Value>
+                    </Assign>
+                    <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="484,93" sap2010:WorkflowViewState.IdRef="LogMessage_26" Level="Info" Message="[TCKimlikNo+&quot; TC li kayda ait SicilNo DB de bulundu. Vaka : &quot;+Vaka+&quot; RaporTakipNo : &quot;+RaporTakipNo+&quot; and RaporSiraNo : &quot;+RaporSiraNo]" />
+                    <Assign DisplayName="Assign Musteri" sap:VirtualizedContainerService.HintSize="484,60" sap2010:WorkflowViewState.IdRef="Assign_62">
+                      <Assign.To>
+                        <OutArgument x:TypeArguments="x:String">[Musteri]</OutArgument>
+                      </Assign.To>
+                      <Assign.Value>
+                        <InArgument x:TypeArguments="x:String">[dtSicilInfo.Rows(0).Item("MUSTERI").ToString]</InArgument>
+                      </Assign.Value>
+                    </Assign>
+                    <If Condition="[String.IsNullOrEmpty(Musteri)]" DisplayName="If Musteri is Null or Empty" sap:VirtualizedContainerService.HintSize="484,240" sap2010:WorkflowViewState.IdRef="If_22">
+                      <sap:WorkflowViewStateService.ViewState>
+                        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                          <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                          <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                        </scg:Dictionary>
+                      </sap:WorkflowViewStateService.ViewState>
+                      <If.Then>
+                        <Assign DisplayName="Assign Musteri" sap:VirtualizedContainerService.HintSize="262,60" sap2010:WorkflowViewState.IdRef="Assign_63">
+                          <Assign.To>
+                            <OutArgument x:TypeArguments="x:String">[Musteri]</OutArgument>
+                          </Assign.To>
+                          <Assign.Value>
+                            <InArgument x:TypeArguments="x:String">Bulunamadi</InArgument>
+                          </Assign.Value>
+                        </Assign>
+                      </If.Then>
+                    </If>
+                  </Sequence>
+                </If.Then>
+                <If.Else>
+                  <Sequence sap:VirtualizedContainerService.HintSize="376,639" sap2010:WorkflowViewState.IdRef="Sequence_61">
+                    <sap:WorkflowViewStateService.ViewState>
+                      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                      </scg:Dictionary>
+                    </sap:WorkflowViewStateService.ViewState>
+                    <Assign DisplayName="Assign SICIL" sap:VirtualizedContainerService.HintSize="334,60" sap2010:WorkflowViewState.IdRef="Assign_82">
+                      <Assign.To>
+                        <OutArgument x:TypeArguments="x:String">[SicilNo]</OutArgument>
+                      </Assign.To>
+                      <Assign.Value>
+                        <InArgument x:TypeArguments="x:String">
+                          <Literal x:TypeArguments="x:String" Value="" />
+                        </InArgument>
+                      </Assign.Value>
+                    </Assign>
+                    <Assign DisplayName="Assign Musteri" sap:VirtualizedContainerService.HintSize="334,60" sap2010:WorkflowViewState.IdRef="Assign_84">
+                      <Assign.To>
+                        <OutArgument x:TypeArguments="x:String">[Musteri]</OutArgument>
+                      </Assign.To>
+                      <Assign.Value>
+                        <InArgument x:TypeArguments="x:String">Bulunamadi</InArgument>
+                      </Assign.Value>
+                    </Assign>
+                    <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="334,93" sap2010:WorkflowViewState.IdRef="LogMessage_27" Level="Info" Message="[TCKimlikNo+&quot; TC li kayda ait SicilNo DB de bulunamadi. Vaka : &quot;+Vaka+&quot; RaporTakipNo : &quot;+RaporTakipNo+&quot; and RaporSiraNo : &quot;+RaporSiraNo]" />
+                    <Sequence sap:VirtualizedContainerService.HintSize="334,214" sap2010:WorkflowViewState.IdRef="Sequence_62">
+                      <Sequence.Variables>
+                        <Variable x:TypeArguments="x:String" Name="Mail_To" />
+                      </Sequence.Variables>
+                      <sap:WorkflowViewStateService.ViewState>
+                        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                          <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                          <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                        </scg:Dictionary>
+                      </sap:WorkflowViewStateService.ViewState>
+                      <Assign sap:VirtualizedContainerService.HintSize="262,60" sap2010:WorkflowViewState.IdRef="Assign_83">
+                        <Assign.To>
+                          <OutArgument x:TypeArguments="x:String">[Mail_To]</OutArgument>
+                        </Assign.To>
+                        <Assign.Value>
+                          <InArgument x:TypeArguments="x:String">[dtBolgeBilgileri.Rows(0).Item("IK").ToString]</InArgument>
+                        </Assign.Value>
+                      </Assign>
+                      <d:SendMail in_MailCc="{x:Null}" sap:VirtualizedContainerService.HintSize="262,22" sap2010:WorkflowViewState.IdRef="SendMail_5" in_MailBody="[in_Config(&quot;Mail_SicilHata_Icerik&quot;).ToString.Replace(&quot;_X&quot;,TCKimlikNo).Replace(&quot;_Y&quot;,Vaka).Replace(&quot;_Z&quot;,RaporTakipNo).Replace(&quot;_T&quot;,RaporSiraNo)]" in_MailSendType="2" in_MailSubject="[in_Config(&quot;Mail_SicilHata_Konu&quot;).ToString]" in_MailTo="[Mail_To]">
+                        <d:SendMail.in_AttachmentList>
+                          <InArgument x:TypeArguments="scg:List(x:String)" />
+                        </d:SendMail.in_AttachmentList>
+                      </d:SendMail>
+                    </Sequence>
+                  </Sequence>
+                </If.Else>
+              </If>
+            </Sequence>
+          </TryCatch.Try>
+          <TryCatch.Catches>
+            <Catch x:TypeArguments="s:Exception" sap:VirtualizedContainerService.HintSize="400,105" sap2010:WorkflowViewState.IdRef="Catch`1_1">
+              <sap:WorkflowViewStateService.ViewState>
+                <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                  <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                  <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                </scg:Dictionary>
+              </sap:WorkflowViewStateService.ViewState>
+              <ActivityAction x:TypeArguments="s:Exception">
+                <ActivityAction.Argument>
+                  <DelegateInArgument x:TypeArguments="s:Exception" Name="SystemException" />
+                </ActivityAction.Argument>
+                <Throw Exception="[SystemException]" sap:VirtualizedContainerService.HintSize="200,22" sap2010:WorkflowViewState.IdRef="Throw_3" />
+              </ActivityAction>
+            </Catch>
+          </TryCatch.Catches>
+        </TryCatch>
+        <If Condition="[SicilNo=&quot;&quot;]" DisplayName="If SicilNo=&quot;&quot;" sap:VirtualizedContainerService.HintSize="3176,2045" sap2010:WorkflowViewState.IdRef="If_21">
+          <If.Then>
+            <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="334,93" sap2010:WorkflowViewState.IdRef="LogMessage_9" Level="Info" Message="[&quot;Sicil No bulunamadi&quot;]" />
+          </If.Then>
+          <If.Else>
+            <Sequence sap:VirtualizedContainerService.HintSize="2797,1885" sap2010:WorkflowViewState.IdRef="Sequence_44">
+              <Sequence.Variables>
+                <Variable x:TypeArguments="x:String" Name="UpdateQuery" />
+              </Sequence.Variables>
+              <sap:WorkflowViewStateService.ViewState>
+                <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                  <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                </scg:Dictionary>
+              </sap:WorkflowViewStateService.ViewState>
+              <Sequence DisplayName="Birinci Yonetici ve IlgiliYoneticiler" sap:VirtualizedContainerService.HintSize="2755,68" sap2010:WorkflowViewState.IdRef="Sequence_24">
+                <Sequence.Variables>
+                  <Variable x:TypeArguments="x:String" Name="BAGLI_OLDUGU_TL" />
+                  <Variable x:TypeArguments="x:String" Name="BAGLI_OLDUGU_SPV" />
+                  <Variable x:TypeArguments="x:String" Name="BAGLI_OLDUGU_MDR" />
+                  <Variable x:TypeArguments="x:String" Name="BAGLI_OLDUGU_DIREKTOR" />
+                </Sequence.Variables>
+                <sap:WorkflowViewStateService.ViewState>
+                  <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                    <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                    <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                  </scg:Dictionary>
+                </sap:WorkflowViewStateService.ViewState>
+                <Sequence DisplayName="Get BAGLI_OLDUGU_TL" sap:VirtualizedContainerService.HintSize="334,68" sap2010:WorkflowViewState.IdRef="Sequence_26">
+                  <sap:WorkflowViewStateService.ViewState>
+                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                      <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                      <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                    </scg:Dictionary>
+                  </sap:WorkflowViewStateService.ViewState>
+                  <If Condition="[String.IsNullOrEmpty(dtSicilInfo.Rows(0).Item(&quot;BAGLI_OLDUGU_TL&quot;).ToString)]" DisplayName="If TL is NULL" sap:VirtualizedContainerService.HintSize="200,51" sap2010:WorkflowViewState.IdRef="If_9">
+                    <sap:WorkflowViewStateService.ViewState>
+                      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                        <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                        <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                      </scg:Dictionary>
+                    </sap:WorkflowViewStateService.ViewState>
+                    <If.Then>
+                      <Assign sap:VirtualizedContainerService.HintSize="262,60" sap2010:WorkflowViewState.IdRef="Assign_34">
+                        <Assign.To>
+                          <OutArgument x:TypeArguments="x:String">[BAGLI_OLDUGU_TL]</OutArgument>
+                        </Assign.To>
+                        <Assign.Value>
+                          <InArgument x:TypeArguments="x:String">
+                            <Literal x:TypeArguments="x:String" Value="" />
+                          </InArgument>
+                        </Assign.Value>
+                      </Assign>
+                    </If.Then>
+                    <If.Else>
+                      <Sequence DisplayName="Get TL Mail" sap:VirtualizedContainerService.HintSize="611,528" sap2010:WorkflowViewState.IdRef="Sequence_32">
+                        <Sequence.Variables>
+                          <Variable x:TypeArguments="sd:DataTable" Name="dtTLInfo" />
+                        </Sequence.Variables>
+                        <sap:WorkflowViewStateService.ViewState>
+                          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                          </scg:Dictionary>
+                        </sap:WorkflowViewStateService.ViewState>
+                        <Assign sap:VirtualizedContainerService.HintSize="569,60" sap2010:WorkflowViewState.IdRef="Assign_35">
+                          <Assign.To>
+                            <OutArgument x:TypeArguments="x:String">[BAGLI_OLDUGU_TL]</OutArgument>
+                          </Assign.To>
+                          <Assign.Value>
+                            <InArgument x:TypeArguments="x:String">[dtSicilInfo.Rows(0).Item("BAGLI_OLDUGU_TL").ToString.Trim]</InArgument>
+                          </Assign.Value>
+                        </Assign>
+                        <ui:ExecuteQuery ContinueOnError="{x:Null}" ExistingDbConnection="{x:Null}" TimeoutMS="{x:Null}" CommandType="Text" DataTable="[dtTLInfo]" DisplayName="Execute Query for TL Mail" sap:VirtualizedContainerService.HintSize="569,88" sap2010:WorkflowViewState.IdRef="ExecuteQuery_11" ProviderName="System.Data.SqlClient" Sql="[in_Config(&quot;GetMailWithAdSoyad&quot;).ToString]" ConnectionString="[connString]">
+                          <ui:ExecuteQuery.Parameters>
+                            <InArgument x:TypeArguments="x:String" x:Key="@ADSOYAD">[BAGLI_OLDUGU_TL]</InArgument>
+                          </ui:ExecuteQuery.Parameters>
+                        </ui:ExecuteQuery>
+                        <If Condition="[String.IsNullOrEmpty(dtTLInfo.Rows(0).Item(&quot;SIRKET_MAIL&quot;).ToString)]" DisplayName="If TL Mail is NULL" sap:VirtualizedContainerService.HintSize="569,208" sap2010:WorkflowViewState.IdRef="If_14">
+                          <If.Then>
+                            <Assign sap:VirtualizedContainerService.HintSize="262,60" sap2010:WorkflowViewState.IdRef="Assign_46">
+                              <Assign.To>
+                                <OutArgument x:TypeArguments="x:String">[BAGLI_OLDUGU_TL]</OutArgument>
+                              </Assign.To>
+                              <Assign.Value>
+                                <InArgument x:TypeArguments="x:String">
+                                  <Literal x:TypeArguments="x:String" Value="" />
+                                </InArgument>
+                              </Assign.Value>
+                            </Assign>
+                          </If.Then>
+                          <If.Else>
+                            <Assign sap:VirtualizedContainerService.HintSize="262,60" sap2010:WorkflowViewState.IdRef="Assign_47">
+                              <Assign.To>
+                                <OutArgument x:TypeArguments="x:String">[BAGLI_OLDUGU_TL]</OutArgument>
+                              </Assign.To>
+                              <Assign.Value>
+                                <InArgument x:TypeArguments="x:String">[dtTLInfo.Rows(0).Item("SIRKET_MAIL").ToString]</InArgument>
+                              </Assign.Value>
+                            </Assign>
+                          </If.Else>
+                        </If>
+                      </Sequence>
+                    </If.Else>
+                  </If>
+                </Sequence>
+                <Sequence DisplayName="Get BAGLI_OLDUGU_SPV" sap:VirtualizedContainerService.HintSize="334,68" sap2010:WorkflowViewState.IdRef="Sequence_27">
+                  <sap:WorkflowViewStateService.ViewState>
+                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                      <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                      <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                    </scg:Dictionary>
+                  </sap:WorkflowViewStateService.ViewState>
+                  <If Condition="[String.IsNullOrEmpty(dtSicilInfo.Rows(0).Item(&quot;BAGLI_OLDUGU_SPV&quot;).ToString)]" DisplayName="If SPV is NULL" sap:VirtualizedContainerService.HintSize="507,214" sap2010:WorkflowViewState.IdRef="If_10">
+                    <If.Then>
+                      <Assign sap:VirtualizedContainerService.HintSize="262,60" sap2010:WorkflowViewState.IdRef="Assign_36">
+                        <Assign.To>
+                          <OutArgument x:TypeArguments="x:String">[BAGLI_OLDUGU_SPV]</OutArgument>
+                        </Assign.To>
+                        <Assign.Value>
+                          <InArgument x:TypeArguments="x:String">
+                            <Literal x:TypeArguments="x:String" Value="" />
+                          </InArgument>
+                        </Assign.Value>
+                      </Assign>
+                    </If.Then>
+                    <If.Else>
+                      <Sequence sap:VirtualizedContainerService.HintSize="200,66" sap2010:WorkflowViewState.IdRef="Sequence_34">
+                        <sap:WorkflowViewStateService.ViewState>
+                          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                            <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                          </scg:Dictionary>
+                        </sap:WorkflowViewStateService.ViewState>
+                        <If Condition="[String.IsNullOrEmpty(dtSicilInfo.Rows(0).Item(&quot;BAGLI_OLDUGU_SPV&quot;).ToString)]" DisplayName="If SPV is NULL" sap:VirtualizedContainerService.HintSize="918,676" sap2010:WorkflowViewState.IdRef="If_16">
+                          <sap:WorkflowViewStateService.ViewState>
+                            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                              <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                              <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                            </scg:Dictionary>
+                          </sap:WorkflowViewStateService.ViewState>
+                          <If.Then>
+                            <Assign sap:VirtualizedContainerService.HintSize="262,60" sap2010:WorkflowViewState.IdRef="Assign_48">
+                              <Assign.To>
+                                <OutArgument x:TypeArguments="x:String">[BAGLI_OLDUGU_SPV]</OutArgument>
+                              </Assign.To>
+                              <Assign.Value>
+                                <InArgument x:TypeArguments="x:String">
+                                  <Literal x:TypeArguments="x:String" Value="" />
+                                </InArgument>
+                              </Assign.Value>
+                            </Assign>
+                          </If.Then>
+                          <If.Else>
+                            <Sequence DisplayName="Get SPV Mail" sap:VirtualizedContainerService.HintSize="611,528" sap2010:WorkflowViewState.IdRef="Sequence_33">
+                              <Sequence.Variables>
+                                <Variable x:TypeArguments="sd:DataTable" Name="dtSPVInfo" />
+                              </Sequence.Variables>
+                              <sap:WorkflowViewStateService.ViewState>
+                                <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                  <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                  <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                                </scg:Dictionary>
+                              </sap:WorkflowViewStateService.ViewState>
+                              <Assign sap:VirtualizedContainerService.HintSize="569,60" sap2010:WorkflowViewState.IdRef="Assign_37">
+                                <Assign.To>
+                                  <OutArgument x:TypeArguments="x:String">[BAGLI_OLDUGU_SPV]</OutArgument>
+                                </Assign.To>
+                                <Assign.Value>
+                                  <InArgument x:TypeArguments="x:String">[dtSicilInfo.Rows(0).Item("BAGLI_OLDUGU_SPV").ToString.Trim]</InArgument>
+                                </Assign.Value>
+                              </Assign>
+                              <ui:ExecuteQuery ContinueOnError="{x:Null}" ExistingDbConnection="{x:Null}" TimeoutMS="{x:Null}" CommandType="Text" DataTable="[dtSPVInfo]" DisplayName="Execute Query for SPV Mail" sap:VirtualizedContainerService.HintSize="569,88" sap2010:WorkflowViewState.IdRef="ExecuteQuery_12" ProviderName="System.Data.SqlClient" Sql="[in_Config(&quot;GetMailWithAdSoyad&quot;).ToString]" ConnectionString="[connString]">
+                                <ui:ExecuteQuery.Parameters>
+                                  <InArgument x:TypeArguments="x:String" x:Key="@ADSOYAD">[BAGLI_OLDUGU_SPV]</InArgument>
+                                </ui:ExecuteQuery.Parameters>
+                              </ui:ExecuteQuery>
+                              <If Condition="[String.IsNullOrEmpty(dtSPVInfo.Rows(0).Item(&quot;SIRKET_MAIL&quot;).ToString)]" DisplayName="If SPV Mail is NULL" sap:VirtualizedContainerService.HintSize="569,208" sap2010:WorkflowViewState.IdRef="If_15">
+                                <If.Then>
+                                  <Assign sap:VirtualizedContainerService.HintSize="262,60" sap2010:WorkflowViewState.IdRef="Assign_49">
+                                    <Assign.To>
+                                      <OutArgument x:TypeArguments="x:String">[BAGLI_OLDUGU_SPV]</OutArgument>
+                                    </Assign.To>
+                                    <Assign.Value>
+                                      <InArgument x:TypeArguments="x:String">
+                                        <Literal x:TypeArguments="x:String" Value="" />
+                                      </InArgument>
+                                    </Assign.Value>
+                                  </Assign>
+                                </If.Then>
+                                <If.Else>
+                                  <Assign sap:VirtualizedContainerService.HintSize="262,60" sap2010:WorkflowViewState.IdRef="Assign_50">
+                                    <Assign.To>
+                                      <OutArgument x:TypeArguments="x:String">[BAGLI_OLDUGU_SPV]</OutArgument>
+                                    </Assign.To>
+                                    <Assign.Value>
+                                      <InArgument x:TypeArguments="x:String">[dtSPVInfo.Rows(0).Item("SIRKET_MAIL").ToString]</InArgument>
+                                    </Assign.Value>
+                                  </Assign>
+                                </If.Else>
+                              </If>
+                            </Sequence>
+                          </If.Else>
+                        </If>
+                      </Sequence>
+                    </If.Else>
+                  </If>
+                </Sequence>
+                <Sequence DisplayName="Get BAGLI_OLDUGU_MDR" sap:VirtualizedContainerService.HintSize="334,68" sap2010:WorkflowViewState.IdRef="Sequence_28">
+                  <sap:WorkflowViewStateService.ViewState>
+                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                      <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                      <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                    </scg:Dictionary>
+                  </sap:WorkflowViewStateService.ViewState>
+                  <If Condition="[String.IsNullOrEmpty(dtSicilInfo.Rows(0).Item(&quot;BAGLI_OLDUGU_MDR&quot;).ToString)]" DisplayName="If MDR is NULL" sap:VirtualizedContainerService.HintSize="1267,916" sap2010:WorkflowViewState.IdRef="If_11">
+                    <If.Then>
+                      <Assign sap:VirtualizedContainerService.HintSize="262,60" sap2010:WorkflowViewState.IdRef="Assign_38">
+                        <Assign.To>
+                          <OutArgument x:TypeArguments="x:String">[BAGLI_OLDUGU_MDR]</OutArgument>
+                        </Assign.To>
+                        <Assign.Value>
+                          <InArgument x:TypeArguments="x:String">
+                            <Literal x:TypeArguments="x:String" Value="" />
+                          </InArgument>
+                        </Assign.Value>
+                      </Assign>
+                    </If.Then>
+                    <If.Else>
+                      <Sequence sap:VirtualizedContainerService.HintSize="960,768" sap2010:WorkflowViewState.IdRef="Sequence_36">
+                        <sap:WorkflowViewStateService.ViewState>
+                          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                          </scg:Dictionary>
+                        </sap:WorkflowViewStateService.ViewState>
+                        <If Condition="[String.IsNullOrEmpty(dtSicilInfo.Rows(0).Item(&quot;BAGLI_OLDUGU_MDR&quot;).ToString)]" DisplayName="If MDR is NULL" sap:VirtualizedContainerService.HintSize="918,676" sap2010:WorkflowViewState.IdRef="If_18">
+                          <sap:WorkflowViewStateService.ViewState>
+                            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                              <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                              <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                            </scg:Dictionary>
+                          </sap:WorkflowViewStateService.ViewState>
+                          <If.Then>
+                            <Assign sap:VirtualizedContainerService.HintSize="262,60" sap2010:WorkflowViewState.IdRef="Assign_51">
+                              <Assign.To>
+                                <OutArgument x:TypeArguments="x:String">[BAGLI_OLDUGU_MDR]</OutArgument>
+                              </Assign.To>
+                              <Assign.Value>
+                                <InArgument x:TypeArguments="x:String">
+                                  <Literal x:TypeArguments="x:String" Value="" />
+                                </InArgument>
+                              </Assign.Value>
+                            </Assign>
+                          </If.Then>
+                          <If.Else>
+                            <Sequence DisplayName="Get MDR Mail" sap:VirtualizedContainerService.HintSize="611,528" sap2010:WorkflowViewState.IdRef="Sequence_35">
+                              <Sequence.Variables>
+                                <Variable x:TypeArguments="sd:DataTable" Name="dtMDRInfo" />
+                              </Sequence.Variables>
+                              <sap:WorkflowViewStateService.ViewState>
+                                <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                  <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                  <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                                </scg:Dictionary>
+                              </sap:WorkflowViewStateService.ViewState>
+                              <Assign sap:VirtualizedContainerService.HintSize="569,60" sap2010:WorkflowViewState.IdRef="Assign_39">
+                                <Assign.To>
+                                  <OutArgument x:TypeArguments="x:String">[BAGLI_OLDUGU_MDR]</OutArgument>
+                                </Assign.To>
+                                <Assign.Value>
+                                  <InArgument x:TypeArguments="x:String">[dtSicilInfo.Rows(0).Item("BAGLI_OLDUGU_MDR").ToString.Trim]</InArgument>
+                                </Assign.Value>
+                              </Assign>
+                              <ui:ExecuteQuery ContinueOnError="{x:Null}" ExistingDbConnection="{x:Null}" TimeoutMS="{x:Null}" CommandType="Text" DataTable="[dtMDRInfo]" DisplayName="Execute Query for MDR Mail" sap:VirtualizedContainerService.HintSize="569,88" sap2010:WorkflowViewState.IdRef="ExecuteQuery_13" ProviderName="System.Data.SqlClient" Sql="[in_Config(&quot;GetMailWithAdSoyad&quot;).ToString]" ConnectionString="[connString]">
+                                <ui:ExecuteQuery.Parameters>
+                                  <InArgument x:TypeArguments="x:String" x:Key="@ADSOYAD">[BAGLI_OLDUGU_MDR]</InArgument>
+                                </ui:ExecuteQuery.Parameters>
+                              </ui:ExecuteQuery>
+                              <If Condition="[String.IsNullOrEmpty(dtMDRInfo.Rows(0).Item(&quot;SIRKET_MAIL&quot;).ToString)]" DisplayName="If MDR Mail is NULL" sap:VirtualizedContainerService.HintSize="569,208" sap2010:WorkflowViewState.IdRef="If_17">
+                                <If.Then>
+                                  <Assign sap:VirtualizedContainerService.HintSize="262,60" sap2010:WorkflowViewState.IdRef="Assign_52">
+                                    <Assign.To>
+                                      <OutArgument x:TypeArguments="x:String">[BAGLI_OLDUGU_MDR]</OutArgument>
+                                    </Assign.To>
+                                    <Assign.Value>
+                                      <InArgument x:TypeArguments="x:String">
+                                        <Literal x:TypeArguments="x:String" Value="" />
+                                      </InArgument>
+                                    </Assign.Value>
+                                  </Assign>
+                                </If.Then>
+                                <If.Else>
+                                  <Assign sap:VirtualizedContainerService.HintSize="262,60" sap2010:WorkflowViewState.IdRef="Assign_53">
+                                    <Assign.To>
+                                      <OutArgument x:TypeArguments="x:String">[BAGLI_OLDUGU_MDR]</OutArgument>
+                                    </Assign.To>
+                                    <Assign.Value>
+                                      <InArgument x:TypeArguments="x:String">[dtMDRInfo.Rows(0).Item("SIRKET_MAIL").ToString]</InArgument>
+                                    </Assign.Value>
+                                  </Assign>
+                                </If.Else>
+                              </If>
+                            </Sequence>
+                          </If.Else>
+                        </If>
+                      </Sequence>
+                    </If.Else>
+                  </If>
+                </Sequence>
+                <Sequence DisplayName="Get BAGLI_OLDUGU_DIREKTOR" sap:VirtualizedContainerService.HintSize="334,68" sap2010:WorkflowViewState.IdRef="Sequence_29">
+                  <sap:WorkflowViewStateService.ViewState>
+                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                      <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                      <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                    </scg:Dictionary>
+                  </sap:WorkflowViewStateService.ViewState>
+                  <If Condition="[String.IsNullOrEmpty(dtSicilInfo.Rows(0).Item(&quot;BAGLI_OLDUGU_DIREKTOR&quot;).ToString)]" DisplayName="If DIREKTOR is NULL" sap:VirtualizedContainerService.HintSize="1267,916" sap2010:WorkflowViewState.IdRef="If_12">
+                    <If.Then>
+                      <Assign sap:VirtualizedContainerService.HintSize="262,60" sap2010:WorkflowViewState.IdRef="Assign_40">
+                        <Assign.To>
+                          <OutArgument x:TypeArguments="x:String">[BAGLI_OLDUGU_DIREKTOR]</OutArgument>
+                        </Assign.To>
+                        <Assign.Value>
+                          <InArgument x:TypeArguments="x:String">
+                            <Literal x:TypeArguments="x:String" Value="" />
+                          </InArgument>
+                        </Assign.Value>
+                      </Assign>
+                    </If.Then>
+                    <If.Else>
+                      <Sequence sap:VirtualizedContainerService.HintSize="960,768" sap2010:WorkflowViewState.IdRef="Sequence_38">
+                        <sap:WorkflowViewStateService.ViewState>
+                          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                          </scg:Dictionary>
+                        </sap:WorkflowViewStateService.ViewState>
+                        <If Condition="[String.IsNullOrEmpty(dtSicilInfo.Rows(0).Item(&quot;BAGLI_OLDUGU_DIREKTOR&quot;).ToString)]" DisplayName="If DIREKTOR is NULL" sap:VirtualizedContainerService.HintSize="918,676" sap2010:WorkflowViewState.IdRef="If_20">
+                          <sap:WorkflowViewStateService.ViewState>
+                            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                              <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                              <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                            </scg:Dictionary>
+                          </sap:WorkflowViewStateService.ViewState>
+                          <If.Then>
+                            <Assign sap:VirtualizedContainerService.HintSize="262,60" sap2010:WorkflowViewState.IdRef="Assign_54">
+                              <Assign.To>
+                                <OutArgument x:TypeArguments="x:String">[BAGLI_OLDUGU_DIREKTOR]</OutArgument>
+                              </Assign.To>
+                              <Assign.Value>
+                                <InArgument x:TypeArguments="x:String">
+                                  <Literal x:TypeArguments="x:String" Value="" />
+                                </InArgument>
+                              </Assign.Value>
+                            </Assign>
+                          </If.Then>
+                          <If.Else>
+                            <Sequence DisplayName="Get DIREKTOR Mail" sap:VirtualizedContainerService.HintSize="611,528" sap2010:WorkflowViewState.IdRef="Sequence_37">
+                              <Sequence.Variables>
+                                <Variable x:TypeArguments="sd:DataTable" Name="dtDIREKTORInfo" />
+                              </Sequence.Variables>
+                              <sap:WorkflowViewStateService.ViewState>
+                                <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                  <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                  <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                                </scg:Dictionary>
+                              </sap:WorkflowViewStateService.ViewState>
+                              <Assign sap:VirtualizedContainerService.HintSize="569,60" sap2010:WorkflowViewState.IdRef="Assign_41">
+                                <Assign.To>
+                                  <OutArgument x:TypeArguments="x:String">[BAGLI_OLDUGU_DIREKTOR]</OutArgument>
+                                </Assign.To>
+                                <Assign.Value>
+                                  <InArgument x:TypeArguments="x:String">[dtSicilInfo.Rows(0).Item("BAGLI_OLDUGU_DIREKTOR").ToString.Trim]</InArgument>
+                                </Assign.Value>
+                              </Assign>
+                              <ui:ExecuteQuery ContinueOnError="{x:Null}" ExistingDbConnection="{x:Null}" TimeoutMS="{x:Null}" CommandType="Text" DataTable="[dtDIREKTORInfo]" DisplayName="Execute Query for DIREKTOR Mail" sap:VirtualizedContainerService.HintSize="569,88" sap2010:WorkflowViewState.IdRef="ExecuteQuery_14" ProviderName="System.Data.SqlClient" Sql="[in_Config(&quot;GetMailWithAdSoyad&quot;).ToString]" ConnectionString="[connString]">
+                                <ui:ExecuteQuery.Parameters>
+                                  <InArgument x:TypeArguments="x:String" x:Key="@ADSOYAD">[BAGLI_OLDUGU_DIREKTOR]</InArgument>
+                                </ui:ExecuteQuery.Parameters>
+                              </ui:ExecuteQuery>
+                              <If Condition="[String.IsNullOrEmpty(dtDIREKTORInfo.Rows(0).Item(&quot;SIRKET_MAIL&quot;).ToString)]" DisplayName="If DIREKTOR Mail is NULL" sap:VirtualizedContainerService.HintSize="569,208" sap2010:WorkflowViewState.IdRef="If_19">
+                                <If.Then>
+                                  <Assign sap:VirtualizedContainerService.HintSize="262,60" sap2010:WorkflowViewState.IdRef="Assign_55">
+                                    <Assign.To>
+                                      <OutArgument x:TypeArguments="x:String">[BAGLI_OLDUGU_DIREKTOR]</OutArgument>
+                                    </Assign.To>
+                                    <Assign.Value>
+                                      <InArgument x:TypeArguments="x:String">
+                                        <Literal x:TypeArguments="x:String" Value="" />
+                                      </InArgument>
+                                    </Assign.Value>
+                                  </Assign>
+                                </If.Then>
+                                <If.Else>
+                                  <Assign sap:VirtualizedContainerService.HintSize="262,60" sap2010:WorkflowViewState.IdRef="Assign_56">
+                                    <Assign.To>
+                                      <OutArgument x:TypeArguments="x:String">[BAGLI_OLDUGU_DIREKTOR]</OutArgument>
+                                    </Assign.To>
+                                    <Assign.Value>
+                                      <InArgument x:TypeArguments="x:String">[dtDIREKTORInfo.Rows(0).Item("SIRKET_MAIL").ToString]</InArgument>
+                                    </Assign.Value>
+                                  </Assign>
+                                </If.Else>
+                              </If>
+                            </Sequence>
+                          </If.Else>
+                        </If>
+                      </Sequence>
+                    </If.Else>
+                  </If>
+                </Sequence>
+                <Assign sap:VirtualizedContainerService.HintSize="334,60" sap2010:WorkflowViewState.IdRef="Assign_42">
+                  <Assign.To>
+                    <OutArgument x:TypeArguments="x:String">[BirinciYonetici]</OutArgument>
+                  </Assign.To>
+                  <Assign.Value>
+                    <InArgument x:TypeArguments="x:String">
+                      <Literal x:TypeArguments="x:String" Value="" />
+                    </InArgument>
+                  </Assign.Value>
+                </Assign>
+                <Assign sap:VirtualizedContainerService.HintSize="334,60" sap2010:WorkflowViewState.IdRef="Assign_43">
+                  <Assign.To>
+                    <OutArgument x:TypeArguments="x:String">[IlgiliYoneticiler]</OutArgument>
+                  </Assign.To>
+                  <Assign.Value>
+                    <InArgument x:TypeArguments="x:String">
+                      <Literal x:TypeArguments="x:String" Value="" />
+                    </InArgument>
+                  </Assign.Value>
+                </Assign>
+                <ui:InvokeCode ContinueOnError="{x:Null}" Code="BirinciYonetici=(TL!=&quot;&quot;?(TL):(SPV!=&quot;&quot;?(SPV):(MDR!=&quot;&quot;?(MDR):(DIREKTOR!=&quot;&quot;?(DIREKTOR):(&quot;NOTFOUND&quot;)))));&#xA;IlgiliYoneticiler=(TL!=&quot;&quot;?(IlgiliYoneticiler+TL+&quot;;&quot;):(IlgiliYoneticiler));&#xA;IlgiliYoneticiler=(SPV!=&quot;&quot;?(IlgiliYoneticiler+SPV+&quot;;&quot;):(IlgiliYoneticiler));&#xA;IlgiliYoneticiler=(MDR!=&quot;&quot;?(IlgiliYoneticiler+MDR+&quot;;&quot;):(IlgiliYoneticiler));&#xA;IlgiliYoneticiler=(DIREKTOR!=&quot;&quot;?(IlgiliYoneticiler+DIREKTOR+&quot;;&quot;):(IlgiliYoneticiler));&#xA;IlgiliYoneticiler=(IlgiliYoneticiler!=&quot;&quot;?(IlgiliYoneticiler.Substring(0,IlgiliYoneticiler.Length-1)):(IlgiliYoneticiler));&#xA;" DisplayName="Private: Invoke code" sap:VirtualizedContainerService.HintSize="334,52" sap2010:WorkflowViewState.IdRef="InvokeCode_1" Language="CSharp">
+                  <ui:InvokeCode.Arguments>
+                    <InArgument x:TypeArguments="x:String" x:Key="TL">[BAGLI_OLDUGU_TL]</InArgument>
+                    <InArgument x:TypeArguments="x:String" x:Key="SPV">[BAGLI_OLDUGU_SPV]</InArgument>
+                    <InArgument x:TypeArguments="x:String" x:Key="MDR">[BAGLI_OLDUGU_MDR]</InArgument>
+                    <InArgument x:TypeArguments="x:String" x:Key="DIREKTOR">[BAGLI_OLDUGU_DIREKTOR]</InArgument>
+                    <InOutArgument x:TypeArguments="x:String" x:Key="BirinciYonetici">[BirinciYonetici]</InOutArgument>
+                    <InOutArgument x:TypeArguments="x:String" x:Key="IlgiliYoneticiler">[IlgiliYoneticiler]</InOutArgument>
+                  </ui:InvokeCode.Arguments>
+                  <sap:WorkflowViewStateService.ViewState>
+                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                      <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                      <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                    </scg:Dictionary>
+                  </sap:WorkflowViewStateService.ViewState>
+                </ui:InvokeCode>
+                <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="334,93" sap2010:WorkflowViewState.IdRef="LogMessage_4" Level="Info" Message="[&quot;BirinciYonetici : &quot;+BirinciYonetici]" />
+                <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="334,93" sap2010:WorkflowViewState.IdRef="LogMessage_5" Level="Info" Message="[&quot;IlgiliYoneticiler : &quot;+IlgiliYoneticiler]" />
+              </Sequence>
+              <If Condition="[dtKayitInfo.Rows(0).Item(&quot;RaporBitisTarihi&quot;).ToString.Contains(&quot;01/01/0001&quot;) and dtKayitInfo.Rows(0).Item(&quot;RaporDurumu&quot;).ToString=&quot;Dogum Oncesi Analik Calisir&quot;]" DisplayName="If RaporBitisTarihi--&gt;01/01/0001 and RaporDurumu--&gt;DogumOncesiAnalikCalisir?" sap:VirtualizedContainerService.HintSize="2755,1685" sap2010:WorkflowViewState.IdRef="If_13">
+                <sap:WorkflowViewStateService.ViewState>
+                  <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                    <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                    <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                  </scg:Dictionary>
+                </sap:WorkflowViewStateService.ViewState>
+                <If.Then>
+                  <Sequence DisplayName="Sequence DogumOncesiAnalikCalisir" sap:VirtualizedContainerService.HintSize="200,68" sap2010:WorkflowViewState.IdRef="Sequence_31">
+                    <sap:WorkflowViewStateService.ViewState>
+                      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                        <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                        <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                      </scg:Dictionary>
+                    </sap:WorkflowViewStateService.ViewState>
+                    <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="376,93" sap2010:WorkflowViewState.IdRef="LogMessage_6" Level="Info" Message="[&quot;Rapor Bitis Tarihi--&gt;01/01/0001 ve Rapor Durumu--&gt;Dogum Oncesi Analik Calisir olan kayitlarin HR a girisi yapilmaz.&quot;]" />
+                    <Assign sap:VirtualizedContainerService.HintSize="376,60" sap2010:WorkflowViewState.IdRef="Assign_45">
+                      <Assign.To>
+                        <OutArgument x:TypeArguments="x:String">[UpdateQuery]</OutArgument>
+                      </Assign.To>
+                      <Assign.Value>
+                        <InArgument x:TypeArguments="x:String" xml:space="preserve">["Update "+RaporBilgileriTabloAdi.Trim+" Set KayitGuncellenmeTarihi='"+now.ToString+"', HRBilisimGirisDurumu='YAPILMAZ' Where [RaporTakipNo]='"+RaporTakipNo+"' and   [RaporSiraNo]='"+RaporSiraNo+"'"]</InArgument>
+                      </Assign.Value>
+                    </Assign>
+                    <Sequence DisplayName="Update DB for HRBilisim" sap:VirtualizedContainerService.HintSize="376,180" sap2010:WorkflowViewState.IdRef="Sequence_30">
+                      <sap:WorkflowViewStateService.ViewState>
+                        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                          <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                          <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                        </scg:Dictionary>
+                      </sap:WorkflowViewStateService.ViewState>
+                      <ui:ExecuteNonQuery AffectedRecords="{x:Null}" ContinueOnError="{x:Null}" ExistingDbConnection="{x:Null}" TimeoutMS="{x:Null}" CommandType="Text" DisplayName="Execute Non Query" sap:VirtualizedContainerService.HintSize="334,88" sap2010:WorkflowViewState.IdRef="ExecuteNonQuery_1" ProviderName="System.Data.SqlClient" Sql="[UpdateQuery]" ConnectionString="[connString]">
+                        <ui:ExecuteNonQuery.Parameters>
+                          <scg:Dictionary x:TypeArguments="x:String, Argument" />
+                        </ui:ExecuteNonQuery.Parameters>
+                      </ui:ExecuteNonQuery>
+                    </Sequence>
+                  </Sequence>
+                </If.Then>
+                <If.Else>
+                  <If Condition="[dtKayitInfo.Rows(0).Item(&quot;RaporBitisTarihi&quot;).ToString.Contains(&quot;01/01/0001&quot;)]" DisplayName="If RaporBitisTarihi=01/01/0001" sap:VirtualizedContainerService.HintSize="2510,1525" sap2010:WorkflowViewState.IdRef="If_31">
+                    <If.Then>
+                      <Sequence sap:VirtualizedContainerService.HintSize="663,690" sap2010:WorkflowViewState.IdRef="Sequence_58">
+                        <sap:WorkflowViewStateService.ViewState>
+                          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                          </scg:Dictionary>
+                        </sap:WorkflowViewStateService.ViewState>
+                        <If Condition="[Vaka=&quot;ANALIK&quot;]" DisplayName="If &quot;RaporBitisTarihi=01/01/0001 and Vaka=ANALIK" sap:VirtualizedContainerService.HintSize="621,598" sap2010:WorkflowViewState.IdRef="If_32">
+                          <If.Then>
+                            <Sequence DisplayName="Sequence ANALIK" sap:VirtualizedContainerService.HintSize="376,438" sap2010:WorkflowViewState.IdRef="Sequence_59">
+                              <Sequence.Variables>
+                                <Variable x:TypeArguments="x:String" Name="VakaKodu" />
+                              </Sequence.Variables>
+                              <sap:WorkflowViewStateService.ViewState>
+                                <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                  <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                </scg:Dictionary>
+                              </sap:WorkflowViewStateService.ViewState>
+                              <Assign sap:VirtualizedContainerService.HintSize="334,60" sap2010:WorkflowViewState.IdRef="Assign_81">
+                                <Assign.To>
+                                  <OutArgument x:TypeArguments="x:String">[VakaKodu]</OutArgument>
+                                </Assign.To>
+                                <Assign.Value>
+                                  <InArgument x:TypeArguments="x:String">32</InArgument>
+                                </Assign.Value>
+                              </Assign>
+                              <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="334,93" sap2010:WorkflowViewState.IdRef="LogMessage_23" Level="Info" Message="[&quot;Vaka Kodu &quot;+VakaKodu+&quot; olarak belirlendi.&quot;]" />
+                              <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="Invoke HRBilisimApp workflow" sap:VirtualizedContainerService.HintSize="334,113" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_19" UnSafe="False" WorkflowFileName="Faz1\HRBilisimApp.xaml">
+                                <ui:InvokeWorkflowFile.Arguments>
+                                  <InArgument x:TypeArguments="x:String" x:Key="in_SicilNo">[SicilNo]</InArgument>
+                                  <InArgument x:TypeArguments="scg:Dictionary(x:String, x:Object)" x:Key="in_Config">[in_Config]</InArgument>
+                                  <InArgument x:TypeArguments="s:DateTime" x:Key="in_RaporBaslamaTarihi">[RaporBaslamaTarihi]</InArgument>
+                                  <InArgument x:TypeArguments="s:DateTime" x:Key="in_RaporBitisTarihi">[RaporBitisTarihi]</InArgument>
+                                  <InArgument x:TypeArguments="x:String" x:Key="in_RaporTakipNo">[RaporTakipNo]</InArgument>
+                                  <InArgument x:TypeArguments="x:String" x:Key="in_RaporSiraNo">[RaporSiraNo]</InArgument>
+                                  <InArgument x:TypeArguments="x:String" x:Key="in_Lokasyon">[Lokasyon]</InArgument>
+                                  <InArgument x:TypeArguments="x:String" x:Key="in_Vaka">[Vaka]</InArgument>
+                                  <InArgument x:TypeArguments="x:String" x:Key="in_IlgiliYoneticiler">[IlgiliYoneticiler]</InArgument>
+                                  <InArgument x:TypeArguments="x:String" x:Key="in_BirinciYonetici">[BirinciYonetici]</InArgument>
+                                  <InArgument x:TypeArguments="sd:DataTable" x:Key="in_dtKayitInfo">[dtKayitInfo]</InArgument>
+                                  <InArgument x:TypeArguments="x:String" x:Key="in_Musteri">[Musteri]</InArgument>
+                                  <InArgument x:TypeArguments="x:String" x:Key="in_VakaKodu">[VakaKodu]</InArgument>
+                                </ui:InvokeWorkflowFile.Arguments>
+                              </ui:InvokeWorkflowFile>
+                            </Sequence>
+                          </If.Then>
+                          <If.Else>
+                            <Sequence DisplayName="Sequence Hatalı Kayıt" sap:VirtualizedContainerService.HintSize="200,68" sap2010:WorkflowViewState.IdRef="Sequence_51">
+                              <Sequence.Variables>
+                                <Variable x:TypeArguments="x:String" Name="Mail_To" />
+                              </Sequence.Variables>
+                              <sap:WorkflowViewStateService.ViewState>
+                                <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                  <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                                  <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                                </scg:Dictionary>
+                              </sap:WorkflowViewStateService.ViewState>
+                              <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="376,93" sap2010:WorkflowViewState.IdRef="LogMessage_20" Level="Info" Message="[&quot;RaporTakipNo : &quot;+RaporTakipNo+&quot; and RaporSiraNo : &quot;+RaporSiraNo+&quot; ve Vaka : &quot;+Vaka+&quot; olan kaydın rapor bitis tarihi 01/01/0001 olduğundan dolayı HRBilisim e girişi ve SGK Onayi yapılmaz ve IK ya hatalı kayıt olarak bildirilir. RaporBitisTarihi : &quot;+RaporBitisTarihi.ToString]" />
+                              <Assign sap:VirtualizedContainerService.HintSize="376,60" sap2010:WorkflowViewState.IdRef="Assign_79">
+                                <Assign.To>
+                                  <OutArgument x:TypeArguments="x:String">[Mail_To]</OutArgument>
+                                </Assign.To>
+                                <Assign.Value>
+                                  <InArgument x:TypeArguments="x:String">[dtBolgeBilgileri.Rows(0).Item("IK").ToString]</InArgument>
+                                </Assign.Value>
+                              </Assign>
+                              <d:SendMail in_MailCc="{x:Null}" sap:VirtualizedContainerService.HintSize="376,22" sap2010:WorkflowViewState.IdRef="SendMail_4" in_MailBody="[in_Config(&quot;Mail_RaporBitisTarihiHata_Icerik&quot;).ToString.Replace(&quot;_X&quot;,AdSoyad).Replace(&quot;_Y&quot;,RaporTakipNo).Replace(&quot;_Z&quot;,RaporSiraNo).Replace(&quot;_T&quot;,Vaka).Replace(&quot;_Bas&quot;,RaporBaslamaTarihi.ToString).Replace(&quot;_Bit&quot;,RaporBitisTarihi.ToString)]" in_MailSendType="2" in_MailSubject="[in_Config(&quot;Mail_RaporBitisTarihiHata_Konu&quot;).ToString]" in_MailTo="[Mail_To]">
+                                <d:SendMail.in_AttachmentList>
+                                  <InArgument x:TypeArguments="scg:List(x:String)" />
+                                </d:SendMail.in_AttachmentList>
+                              </d:SendMail>
+                              <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="376,93" sap2010:WorkflowViewState.IdRef="LogMessage_16" Level="Info" Message="[&quot;Rapor Bitis Tarihi--&gt;01/01/0001 olan Analık kaydı harici bir kayıt tespit edildi.&quot;]" />
+                              <Assign sap:VirtualizedContainerService.HintSize="376,60" sap2010:WorkflowViewState.IdRef="Assign_72">
+                                <Assign.To>
+                                  <OutArgument x:TypeArguments="x:String">[UpdateQuery]</OutArgument>
+                                </Assign.To>
+                                <Assign.Value>
+                                  <InArgument x:TypeArguments="x:String" xml:space="preserve">["Update "+RaporBilgileriTabloAdi.Trim+" Set KayitGuncellenmeTarihi='"+now.ToString+"', HRBilisimGirisDurumu='HATALI KAYIT' Where [RaporTakipNo]='"+RaporTakipNo+"' and   [RaporSiraNo]='"+RaporSiraNo+"'"]</InArgument>
+                                </Assign.Value>
+                              </Assign>
+                              <Sequence DisplayName="Update DB for HRBilisim" sap:VirtualizedContainerService.HintSize="376,180" sap2010:WorkflowViewState.IdRef="Sequence_50">
+                                <sap:WorkflowViewStateService.ViewState>
+                                  <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                    <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                    <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                                  </scg:Dictionary>
+                                </sap:WorkflowViewStateService.ViewState>
+                                <ui:ExecuteNonQuery AffectedRecords="{x:Null}" ContinueOnError="{x:Null}" ExistingDbConnection="{x:Null}" TimeoutMS="{x:Null}" CommandType="Text" DisplayName="Execute Non Query" sap:VirtualizedContainerService.HintSize="334,88" sap2010:WorkflowViewState.IdRef="ExecuteNonQuery_3" ProviderName="System.Data.SqlClient" Sql="[UpdateQuery]" ConnectionString="[connString]">
+                                  <ui:ExecuteNonQuery.Parameters>
+                                    <scg:Dictionary x:TypeArguments="x:String, Argument" />
+                                  </ui:ExecuteNonQuery.Parameters>
+                                </ui:ExecuteNonQuery>
+                              </Sequence>
+                            </Sequence>
+                          </If.Else>
+                        </If>
+                      </Sequence>
+                    </If.Then>
+                    <If.Else>
+                      <If Condition="[DateDiff(DateInterval.Day,CDate(RaporBitisTarihi),Now.Date)&gt;CINT(in_Config(&quot;GunAsimi&quot;))]" DisplayName="If Now-RaporBitisTarihi &gt; in_Config(&quot;GunAsimi&quot;)" sap:VirtualizedContainerService.HintSize="1802,1365" sap2010:WorkflowViewState.IdRef="If_30">
+                        <sap:WorkflowViewStateService.ViewState>
+                          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                          </scg:Dictionary>
+                        </sap:WorkflowViewStateService.ViewState>
+                        <If.Then>
+                          <Sequence DisplayName="Sequence in_Config(&quot;GunAsimi&quot;) gunden eski kayit" sap:VirtualizedContainerService.HintSize="418,667" sap2010:WorkflowViewState.IdRef="Sequence_53">
+                            <Sequence.Variables>
+                              <Variable x:TypeArguments="x:String" Name="Mail_To" />
+                            </Sequence.Variables>
+                            <sap:WorkflowViewStateService.ViewState>
+                              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                              </scg:Dictionary>
+                            </sap:WorkflowViewStateService.ViewState>
+                            <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="376,93" sap2010:WorkflowViewState.IdRef="LogMessage_17" Level="Info" Message="[&quot;RaporTakipNo : &quot;+RaporTakipNo+&quot; and RaporSiraNo : &quot;+RaporSiraNo+&quot; ve Vaka : &quot;+Vaka+&quot; olan kaydın üstünden &quot;+in_Config(&quot;GunAsimi&quot;).ToString+&quot; gün geçtiğinden dolayı HRBilisim e girişi ve SGK Onayi yapılmaz. RaporBitisTarihi : &quot;+RaporBitisTarihi.ToString]" />
+                            <Assign sap:VirtualizedContainerService.HintSize="376,60" sap2010:WorkflowViewState.IdRef="Assign_73">
+                              <Assign.To>
+                                <OutArgument x:TypeArguments="x:String">[Mail_To]</OutArgument>
+                              </Assign.To>
+                              <Assign.Value>
+                                <InArgument x:TypeArguments="x:String">[dtBolgeBilgileri.Rows(0).Item("IK").ToString]</InArgument>
+                              </Assign.Value>
+                            </Assign>
+                            <d:SendMail in_MailCc="{x:Null}" sap:VirtualizedContainerService.HintSize="376,22" sap2010:WorkflowViewState.IdRef="SendMail_3" in_MailBody="[in_Config(&quot;Mail_GunAsimi_Icerik&quot;).ToString.Replace(&quot;_X&quot;,AdSoyad).Replace(&quot;_Y&quot;,RaporTakipNo).Replace(&quot;_Z&quot;,RaporSiraNo).Replace(&quot;_T&quot;,Vaka).Replace(&quot;_Gun&quot;,in_Config(&quot;GunAsimi&quot;).ToString).Replace(&quot;_Bas&quot;,RaporBaslamaTarihi.ToString).Replace(&quot;_Bit&quot;,RaporBitisTarihi.ToString)]" in_MailSendType="2" in_MailSubject="[in_Config(&quot;Mail_GunAsimi_Konu&quot;).ToString]" in_MailTo="[Mail_To]">
+                              <d:SendMail.in_AttachmentList>
+                                <InArgument x:TypeArguments="scg:List(x:String)" />
+                              </d:SendMail.in_AttachmentList>
+                            </d:SendMail>
+                            <Assign sap:VirtualizedContainerService.HintSize="376,60" sap2010:WorkflowViewState.IdRef="Assign_74">
+                              <Assign.To>
+                                <OutArgument x:TypeArguments="x:String">[UpdateQuery]</OutArgument>
+                              </Assign.To>
+                              <Assign.Value>
+                                <InArgument x:TypeArguments="x:String" xml:space="preserve">["Update "+RaporBilgileriTabloAdi.Trim+" Set KayitGuncellenmeTarihi='"+now.ToString+"', HRBilisimGirisDurumu='GunAsimi' Where [RaporTakipNo]='"+RaporTakipNo+"' and   [RaporSiraNo]='"+RaporSiraNo+"'"]</InArgument>
+                              </Assign.Value>
+                            </Assign>
+                            <Sequence DisplayName="Update DB for HRBilisim" sap:VirtualizedContainerService.HintSize="376,180" sap2010:WorkflowViewState.IdRef="Sequence_52">
+                              <sap:WorkflowViewStateService.ViewState>
+                                <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                  <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                  <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                                </scg:Dictionary>
+                              </sap:WorkflowViewStateService.ViewState>
+                              <ui:ExecuteNonQuery AffectedRecords="{x:Null}" ContinueOnError="{x:Null}" ExistingDbConnection="{x:Null}" TimeoutMS="{x:Null}" CommandType="Text" DisplayName="Execute Non Query" sap:VirtualizedContainerService.HintSize="334,88" sap2010:WorkflowViewState.IdRef="ExecuteNonQuery_4" ProviderName="System.Data.SqlClient" Sql="[UpdateQuery]" ConnectionString="[connString]">
+                                <ui:ExecuteNonQuery.Parameters>
+                                  <scg:Dictionary x:TypeArguments="x:String, Argument" />
+                                </ui:ExecuteNonQuery.Parameters>
+                              </ui:ExecuteNonQuery>
+                            </Sequence>
+                          </Sequence>
+                        </If.Then>
+                        <If.Else>
+                          <Sequence sap:VirtualizedContainerService.HintSize="1339,1205" sap2010:WorkflowViewState.IdRef="Sequence_55">
+                            <Sequence.Variables>
+                              <Variable x:TypeArguments="x:String" Name="VakaKodu" />
+                            </Sequence.Variables>
+                            <sap:WorkflowViewStateService.ViewState>
+                              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                              </scg:Dictionary>
+                            </sap:WorkflowViewStateService.ViewState>
+                            <Assign sap:VirtualizedContainerService.HintSize="1297,60" sap2010:WorkflowViewState.IdRef="Assign_75">
+                              <Assign.To>
+                                <OutArgument x:TypeArguments="x:String">[VakaKodu]</OutArgument>
+                              </Assign.To>
+                              <Assign.Value>
+                                <InArgument x:TypeArguments="x:String">
+                                  <Literal x:TypeArguments="x:String" Value="" />
+                                </InArgument>
+                              </Assign.Value>
+                            </Assign>
+                            <If Condition="[Vaka=&quot;HASTALIK&quot; or Vaka=&quot;ARSIV&quot;]" DisplayName="If Vaka=&quot;HASTALIK&quot;--&gt;31 Vaka=&quot;ANALIK&quot;--&gt;32 Vaka=&quot;IS KAZASI&quot;--&gt;9 Vaka=&quot;ARSIV&quot;--&gt;31" sap:VirtualizedContainerService.HintSize="1297,727" sap2010:WorkflowViewState.IdRef="If_29">
+                              <sap:WorkflowViewStateService.ViewState>
+                                <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                  <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                  <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                                </scg:Dictionary>
+                              </sap:WorkflowViewStateService.ViewState>
+                              <If.Then>
+                                <Assign sap:VirtualizedContainerService.HintSize="262,60" sap2010:WorkflowViewState.IdRef="Assign_76">
+                                  <Assign.To>
+                                    <OutArgument x:TypeArguments="x:String">[VakaKodu]</OutArgument>
+                                  </Assign.To>
+                                  <Assign.Value>
+                                    <InArgument x:TypeArguments="x:String">31</InArgument>
+                                  </Assign.Value>
+                                </Assign>
+                              </If.Then>
+                              <If.Else>
+                                <If Condition="[Vaka=&quot;ANALIK&quot;]" DisplayName="If in_Vaka=&quot;ANALIK&quot;--&gt;32  in_Vaka=&quot;IS KAZASI&quot;--&gt;9" sap:VirtualizedContainerService.HintSize="990,567" sap2010:WorkflowViewState.IdRef="If_28">
+                                  <If.Then>
+                                    <Assign sap:VirtualizedContainerService.HintSize="262,60" sap2010:WorkflowViewState.IdRef="Assign_77">
+                                      <Assign.To>
+                                        <OutArgument x:TypeArguments="x:String">[VakaKodu]</OutArgument>
+                                      </Assign.To>
+                                      <Assign.Value>
+                                        <InArgument x:TypeArguments="x:String">32</InArgument>
+                                      </Assign.Value>
+                                    </Assign>
+                                  </If.Then>
+                                  <If.Else>
+                                    <If Condition="[Vaka=&quot;IS KAZASI&quot; or Vaka=&quot;Is Kazasi&quot;]" DisplayName="If  in_Vaka=&quot;IS KAZASI&quot;--&gt;9" sap:VirtualizedContainerService.HintSize="683,407" sap2010:WorkflowViewState.IdRef="If_27">
+                                      <If.Then>
+                                        <Assign sap:VirtualizedContainerService.HintSize="262,60" sap2010:WorkflowViewState.IdRef="Assign_78">
+                                          <Assign.To>
+                                            <OutArgument x:TypeArguments="x:String">[VakaKodu]</OutArgument>
+                                          </Assign.To>
+                                          <Assign.Value>
+                                            <InArgument x:TypeArguments="x:String">9</InArgument>
+                                          </Assign.Value>
+                                        </Assign>
+                                      </If.Then>
+                                      <If.Else>
+                                        <Sequence DisplayName="Vaka Tipi Bulunamadi" sap:VirtualizedContainerService.HintSize="376,247" sap2010:WorkflowViewState.IdRef="Sequence_54">
+                                          <sap:WorkflowViewStateService.ViewState>
+                                            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                              <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                            </scg:Dictionary>
+                                          </sap:WorkflowViewStateService.ViewState>
+                                          <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="334,93" sap2010:WorkflowViewState.IdRef="LogMessage_18" Level="Info" Message="[&quot;Vaka Tipi Belirlenemedi&quot;]" />
+                                          <Throw Exception="[new BusinessRuleException(Vaka+&quot; --&gt;Vaka Tipi Belirlenemedi&quot;)]" sap:VirtualizedContainerService.HintSize="334,22" sap2010:WorkflowViewState.IdRef="Throw_2" />
+                                        </Sequence>
+                                      </If.Else>
+                                    </If>
+                                  </If.Else>
+                                </If>
+                              </If.Else>
+                            </If>
+                            <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="1297,93" sap2010:WorkflowViewState.IdRef="LogMessage_19" Level="Info" Message="[&quot;Vaka Kodu &quot;+VakaKodu+&quot; olarak belirlendi.&quot;]" />
+                            <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="Invoke HRBilisimApp workflow" sap:VirtualizedContainerService.HintSize="1297,113" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_18" UnSafe="False" WorkflowFileName="Faz1\HRBilisimApp.xaml">
+                              <ui:InvokeWorkflowFile.Arguments>
+                                <InArgument x:TypeArguments="x:String" x:Key="in_SicilNo">[SicilNo]</InArgument>
+                                <InArgument x:TypeArguments="scg:Dictionary(x:String, x:Object)" x:Key="in_Config">[in_Config]</InArgument>
+                                <InArgument x:TypeArguments="s:DateTime" x:Key="in_RaporBaslamaTarihi">[RaporBaslamaTarihi]</InArgument>
+                                <InArgument x:TypeArguments="s:DateTime" x:Key="in_RaporBitisTarihi">[RaporBitisTarihi]</InArgument>
+                                <InArgument x:TypeArguments="x:String" x:Key="in_RaporTakipNo">[RaporTakipNo]</InArgument>
+                                <InArgument x:TypeArguments="x:String" x:Key="in_RaporSiraNo">[RaporSiraNo]</InArgument>
+                                <InArgument x:TypeArguments="x:String" x:Key="in_Lokasyon">[Lokasyon]</InArgument>
+                                <InArgument x:TypeArguments="x:String" x:Key="in_Vaka">[Vaka]</InArgument>
+                                <InArgument x:TypeArguments="x:String" x:Key="in_IlgiliYoneticiler">[IlgiliYoneticiler]</InArgument>
+                                <InArgument x:TypeArguments="x:String" x:Key="in_BirinciYonetici">[BirinciYonetici]</InArgument>
+                                <InArgument x:TypeArguments="sd:DataTable" x:Key="in_dtKayitInfo">[dtKayitInfo]</InArgument>
+                                <InArgument x:TypeArguments="x:String" x:Key="in_Musteri">[Musteri]</InArgument>
+                                <InArgument x:TypeArguments="x:String" x:Key="in_VakaKodu">[VakaKodu]</InArgument>
+                              </ui:InvokeWorkflowFile.Arguments>
+                            </ui:InvokeWorkflowFile>
+                          </Sequence>
+                        </If.Else>
+                      </If>
+                    </If.Else>
+                  </If>
+                </If.Else>
+              </If>
+            </Sequence>
+          </If.Else>
+        </If>
+      </Sequence>
+    </Sequence>
+    <ui:Comment DisplayName="Comment (placeholder)" sap:VirtualizedContainerService.HintSize="2052,55" sap2010:WorkflowViewState.IdRef="Comment_1" Text="//  Invoke steps of the process" />
+  </Sequence>
+</Activity>
